@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -1030,7 +1030,11 @@ In the meantime, you can exclude any file from Hot-Reload by
         protected static void AutoDetectAndSetShaderMode()
         {
             var usedShaderMode = FastScriptReloadPreference.ShadersMode.Surface;
-            var renderPipelineAsset = GraphicsSettings.renderPipelineAsset;
+#if UNITY_6000_0_OR_NEWER
+            var renderPipelineAsset = GraphicsSettings.defaultRenderPipeline;
+#else
+			var renderPipelineAsset = GraphicsSettings.renderPipelineAsset;
+#endif
             if (renderPipelineAsset == null)
             {
                 usedShaderMode = FastScriptReloadPreference.ShadersMode.Surface;
